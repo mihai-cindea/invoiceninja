@@ -15,8 +15,8 @@ services:
     env_file: .env
     restart: always
     volumes:
-      - ./srv/invoiceninja/storage:/var/www/app/storage:rw
-      - ./srv/invoiceninja/logo:/var/www/app/public/logo:rw
+      - ./mnt/user/appdata/invoiceninja/storage:/var/www/app/storage:rw
+      - ./mnt/user/appdata/invoiceninja/logo:/var/www/app/public/logo:rw
 
   web:
     image: nginx
