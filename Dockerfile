@@ -1,6 +1,6 @@
 FROM php:7.0-fpm
 
-MAINTAINER Samuel Laulhau <sam@lalop.co>
+MAINTAINER Anojh Thayaparan <athayapa@sfu.ca>
 
 #####
 # SYSTEM REQUIREMENT
