@@ -12,7 +12,7 @@ RUN apt-get update \
         libfreetype6-dev libjpeg62-turbo-dev libpng12-dev \
         build-essential chrpath libssl-dev libxft-dev \
         libfreetype6 libfontconfig1 libfontconfig1-dev \
-	nginx \
+	nginx nano \
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure gmp \
@@ -73,9 +73,8 @@ VOLUME /var/www/app/public
 WORKDIR /var/www/app
 
 COPY docker-compose/nginx.conf /etc/nginx/nginx.conf
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 EXPOSE 80
-CMD service nginx start
+CMD ["nginx", "-g", "daemon off;"]
 
 COPY docker-compose/cronscript.sh /cronscript.sh
 COPY entrypoint.sh /entrypoint.sh
