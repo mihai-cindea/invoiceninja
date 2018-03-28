@@ -40,9 +40,9 @@ fi
 
 NGINX="$(service nginx start)"
 
-/bin/sh /cronscript.sh
+/bin/sh /cronscript.sh &
 
-/bin/sh $NGINX
+/bin/sh $NGINX &
 
 echo 'start'
 exec "$@"
