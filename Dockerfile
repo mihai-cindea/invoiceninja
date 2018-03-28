@@ -81,6 +81,6 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh /cronscript.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-RUN /cronscript.sh
 CMD ["php-fpm"]
 CMD ["nginx", "-g", "daemon off;"]
+CMD /cronscript.sh
