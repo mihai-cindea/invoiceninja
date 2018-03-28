@@ -75,12 +75,12 @@ WORKDIR /var/www/app
 COPY docker-compose/nginx.conf /etc/nginx/nginx.conf
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 EXPOSE 80
+CMD service nginx start
 
 COPY docker-compose/cronscript.sh /cronscript.sh
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh /cronscript.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["php-fpm"]
-CMD ["nginx", "-g", "daemon off;"]
 CMD /cronscript.sh
+CMD ["php-fpm"]
