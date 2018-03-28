@@ -40,7 +40,7 @@ fi
 
 /bin/sh /cronscript.sh
 
-service nginx start
+/bin/sh service nginx start
 
 echo 'start'
 exec "$@"
