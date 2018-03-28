@@ -1,3 +1,5 @@
+#!/bin/bash
+
 bash -c 'bash -s <<EOF
       trap "break;exit" SIGHUP SIGINT SIGTERM
       sleep 300s
