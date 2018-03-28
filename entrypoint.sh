@@ -38,5 +38,9 @@ fi
 	#touch "/var/www/app/is-seeded"
 #fi
 
+/bin/sh /cronscript.sh
+
+service nginx start
+
 echo 'start'
 exec "$@"
