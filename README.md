@@ -21,7 +21,17 @@ docker run -d
   -e DB_DATABASE='ninja'
   -e DB_USERNAME='ninja'
   -e DB_PASSWORD='ninja'
+  -e TRUSTED_PROXIES='PROXYCIDR'
+  -e MAIL_DRIVER='smtp'
+  -e MAIL_PORT='587'
+  -e MAIL_ENCRYPTION='tls'
+  -e MAIL_HOST='smtp.example.com'
+  -e MAIL_USERNAME='johndoe@example.com'
+  -e MAIL_FROM_ADDRESS='sales@example.com'
+  -e MAIL_FROM_NAME='Sales Department'
+  -e MAIL_PASSWORD='SUPERSECRETEMAILPASSWORD'
   -p '80:8000'
+  -p '443:443'
   invoiceninja/invoiceninja
 ```
 A list of environment variables can be found [here](https://github.com/invoiceninja/invoiceninja/blob/master/.env.example)
