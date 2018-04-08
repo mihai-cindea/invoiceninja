@@ -1,19 +1,19 @@
-FROM php:7.0-fpm-alpine
+FROM php:7.2-fpm-alpine
 
-MAINTAINER Samuel Laulhau <sam@lalop.co>
+MAINTAINER Anojh Thayaparan <athayapa@sfu.ca>
 
 #####
 # SYSTEM REQUIREMENT
 #####
 ENV PHANTOMJS phantomjs-2.1.1-linux-x86_64
 RUN apk update \
- && apk add --no-cache libmcrypt-dev git gmp-dev freetype-dev libjpeg-turbo-dev \
+ && apk add --no-cache git gmp-dev freetype-dev libjpeg-turbo-dev \
             coreutils chrpath fontconfig libpng-dev
 
 RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure gmp \
-    && docker-php-ext-install iconv mcrypt mbstring pdo pdo_mysql zip gd gmp opcache \
+    && docker-php-ext-install iconv mbstring pdo pdo_mysql zip gd gmp opcache \
     && echo "php_admin_value[error_reporting] = E_ALL & ~E_NOTICE & ~E_WARNING & ~E_STRICT & ~E_DEPRECATED">>/usr/local/etc/php-fpm.d/www.conf
     
 RUN cd /usr/share \
@@ -53,7 +53,8 @@ RUN curl -o invoiceninja.tar.gz -SL https://github.com/hillelcoren/invoice-ninja
     && chown -R www-data:www-data /var/www/app/bootstrap/cache \
     && mv /var/www/app/storage /var/www/app/docker-backup-storage \
     && mv /var/www/app/public /var/www/app/docker-backup-public \
-    && rm -rf /var/www/app/docs /var/www/app/tests
+    && rm -rf /var/www/app/docs /var/www/app/tests \
+    && rm /usr/local/bin/composer
 
 
 ######
