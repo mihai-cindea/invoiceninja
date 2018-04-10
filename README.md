@@ -1,6 +1,6 @@
 DockerFile for invoice ninja (https://www.invoiceninja.com/)
 
-This image is based on `php:7.0-fpm` official version.
+This image is based on `php:7.2-fpm` official version.
 
 To make your data persistent, you have to mount `/var/www/app/public/logo` and `/var/www/app/storage`.
 
