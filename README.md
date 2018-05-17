@@ -14,7 +14,7 @@ docker run -d
   -e APP_ENV='production'
   -e APP_DEBUG=0
   -e APP_URL='http://IPADDRESS:8000'
-  -e APP_KEY='SomeRandomStringSomeRandomString'
+  -e APP_KEY='SomeRandom32CharacterLongAlphanumericString'
   -e DB_TYPE='mysql'
   -e DB_STRICT='false'
   -e DB_HOST='localhost'
