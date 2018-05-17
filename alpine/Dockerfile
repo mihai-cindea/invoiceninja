@@ -1,19 +1,19 @@
-FROM php:7.0-fpm-alpine
+FROM php:7.2-fpm-alpine
 
-MAINTAINER Samuel Laulhau <sam@lalop.co>
+MAINTAINER Anojh Thayaparan <athayapa@sfu.ca>
 
 #####
 # SYSTEM REQUIREMENT
 #####
 ENV PHANTOMJS phantomjs-2.1.1-linux-x86_64
 RUN apk update \
- && apk add --no-cache libmcrypt-dev git gmp-dev freetype-dev libjpeg-turbo-dev \
+ && apk add --no-cache git gmp-dev freetype-dev libjpeg-turbo-dev \
             coreutils chrpath fontconfig libpng-dev
 
 RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure gmp \
-    && docker-php-ext-install iconv mcrypt mbstring pdo pdo_mysql zip gd gmp opcache \
+    && docker-php-ext-install iconv mbstring pdo pdo_mysql zip gd gmp opcache \
     && echo "php_admin_value[error_reporting] = E_ALL & ~E_NOTICE & ~E_WARNING & ~E_STRICT & ~E_DEPRECATED">>/usr/local/etc/php-fpm.d/www.conf
     
 RUN cd /usr/share \
@@ -35,25 +35,30 @@ RUN { \
 #####
 # INSTALL COMPOSER
 #####
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 #####
 # DOWNLOAD AND INSTALL INVOICE NINJA
 #####
 
-ENV INVOICENINJA_VERSION 4.2.2
+ENV INVOICENINJA_VERSION 4.4.3
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN curl -o invoiceninja.tar.gz -SL https://github.com/hillelcoren/invoice-ninja/archive/v${INVOICENINJA_VERSION}.tar.gz \
     && tar -xzf invoiceninja.tar.gz -C /var/www/ \
     && rm invoiceninja.tar.gz \
     && mv /var/www/invoiceninja-${INVOICENINJA_VERSION} /var/www/app \
     && chown -R www-data:www-data /var/www/app \
-    && composer install --working-dir /var/www/app -o --no-dev --no-interaction --no-progress \
+    && composer install --working-dir /var/www/app --no-suggest \
+    			--optimize-autoloader --no-interaction \
+			--prefer-dist --no-progress --no-dev \
     && chown -R www-data:www-data /var/www/app/bootstrap/cache \
     && mv /var/www/app/storage /var/www/app/docker-backup-storage \
     && mv /var/www/app/public /var/www/app/docker-backup-public \
-    && rm -rf /var/www/app/docs /var/www/app/tests
+    && rm -rf /var/www/app/docs /var/www/app/tests \
+    && composer clear-cache \
+    && rm /usr/bin/composer
 
 
 ######
