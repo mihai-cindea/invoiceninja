@@ -1,6 +1,7 @@
-FROM php:7.2-fpm-alpine
+ARG PHP_IMAGE_TAG=7.2-fpm-alpine
+FROM php:${PHP_IMAGE_TAG}
 
-MAINTAINER Anojh Thayaparan <athayapa@sfu.ca>
+LABEL maintainer="Anojh Thayaparan <athayapa@sfu.ca>"
 
 #####
 # SYSTEM REQUIREMENT
