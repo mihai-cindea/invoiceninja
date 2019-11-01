@@ -76,7 +76,7 @@ ENV SELF_UPDATER_SOURCE ''
 ENV PHANTOMJS_BIN_PATH /usr/local/bin/phantomjs
 
 
-#use to be mounted into nginx for exemple
+#use to be mounted into nginx for example
 VOLUME /var/www/app/public
 
 WORKDIR /var/www/app
