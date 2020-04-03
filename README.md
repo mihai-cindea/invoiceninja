@@ -1,3 +1,8 @@
+[![Docker Pulls](https://img.shields.io/docker/pulls/anojht/invoiceninja.svg)](https://hub.docker.com/r/anojht/invoiceninja/)
+[![Paypal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://paypal.me/Anojh)
+
+___
+
 DockerFile for invoice ninja (https://www.invoiceninja.com/)
 
 This image is based on `php:7.2-fpm` official version.
