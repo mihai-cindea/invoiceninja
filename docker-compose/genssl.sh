@@ -1,10 +1,18 @@
 #!/bin/bash
+SSL_HOSTNAME=${SSL_HOSTNAME:-tower}
+
 DIR="/etc/nginx/ssl/"
 mkdir -p $DIR
 
 if [[ -f $DIR/invoiceninja.crt ]];then
 	echo "Cert already generated"
 	exit
+fi
+
+if [[ -n $SSL_KEY ]] && [[ -n $SSL_CERT ]];then
+  echo "$SSL_KEY" > $DIR/invoiceninja.key
+  echo "$SSL_CERT" > $DIR/invoiceninja.key
+  exit # don't continue if a cert was provided
 fi
 
 # Generate our key
@@ -17,7 +25,7 @@ Timis
 Timisoara
 Myself
 Me
-*.dev
+$SSL_HOSTNAME
 admin@localhost
 ANSWERS
 
